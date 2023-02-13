@@ -7,19 +7,13 @@ from sklearn import linear_model
 
 df=pd.read_csv('SaYoPillow.csv')
 
-reg=linear_model.LinearRegression()
-reg.fit(df[['sr','rr','t','lm','bo','rem','sr.1','hr']],df.sl)
-
-sr=float(input("Enter snoring rate"))
-rr=float(input("Enter respiration rate"))
-t=float(input("Enter body temperature"))
-lm=float(input("Enter limb movement"))
-bo=float(input("Enter blood oxygen"))
-rem=float(input("Enter eye movement"))
-sr1=float(input("Enter sleeping hours"))
-hr=float(input("Enter heart rate"))
-
-print("Your Stress Rate is",int(reg.predict([[sr,rr,t,lm,bo,rem,sr199,hr]])))
+from sklearn.model_selection import train_test_split
+x = df.drop(columns='sl',axis=1)
+y=df['sl']
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2)
+from sklearn.linear_model import LogisticRegression
+model=LogisticRegression()
+model.fit(x_train,y_train)
 
 
 
